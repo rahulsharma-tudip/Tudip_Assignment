@@ -1,0 +1,3 @@
+http://www.w3resource.com/javascript/form/javascript-sample-registration-form-validation.php
+
+http://www.w3schools.com/tags/att_input_pattern.asp

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+a:link {
+    color: white;
+	text-decoration: none;
+	font-size: 1.07em
+}
+
+/* visited link */
+a:visited {
+    color: #00FF00;
+}
+
+/* mouse over link */
+a:hover {
+    color: black;
+}
+
+/* selected link */
+a:active {
+    color: green;
+}
+ul {
+    list-style-type: none;
+    margin: 1px;
+    padding: 2px;
+    overflow: hidden;
+}
+
+li {
+    float: left;
+}
+
+a {
+    display: block;
+    padding: 14px;
+    background-color: #808080;
+}
+#globe1 { 
+  background: url(globe.jpg) no-repeat center center fixed; 
+  background-size: cover;
+}
+#panel {
+    text-align: center;
+    background-color: #808080;
+    display: none;
+	height:200px;
+	width:100px;
+	float:left;
+	margin-left: 810px;
+}
+  </style>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script> 
+$(document).ready(function(){
+    $("#tot").mouseenter(function(){
+        $("#panel").slideDown("fast");
+    });
+	$("#tot").mouseleave(function(){
+        $("#panel").slideUp("fast");
+    });
+});
+</script>
+</head>
+<body>
+
+<ul>
+  <li><a href="#home">HOME</a></li>
+  <li><a href="#html">HTML</a></li>
+  <li><a href="#css">CSS</a></li>
+  <li><a href="#javascript">JAVASCRIPT</a></li>
+  <li><a href="#sql">SQL</a></li>
+  <li><a href="#php">PHP</a></li>
+  <li><a href="#jquery">JQUERY</a></li>
+  <li><a href="#bootstrap">BOOTSTRAP</a></li>
+  <li><a href="#angular">ANGULAR</a></li>
+  <li id="tot"><a href="#totorials">TUTORIALS</a></li>
+  <li><a href="#refrences">REFERENCES</a></li>
+  <li><a href="#examples">EXAMPLES</a></li>
+  <li><a href="#forums">FORUMS</a></li>
+  <li><a href="#news1">NEWS</a></li>
+</ul>
+  <div id="panel"><p> CORE JAVA </p><p> ADVANCED </p><p> SERVLET </p><p> JSP </p><p> SPRING </p> </div>
+
+</body>
+</html>

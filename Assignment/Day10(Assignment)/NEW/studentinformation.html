@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> Student Information</title>
+	<style>
+		h2 {
+			text-align: center;
+		}
+		table, th, td {
+			border: 1px solid black;
+			border: 1px solid green;
+		} 
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		th {
+			height: 50px;
+			text-align: left;
+			background-color: green;
+			color: white;
+		}
+		td	{
+			padding: 10px;
+		}
+		.save {
+			background: transparent;
+			border: none !important;
+			font-size:0;
+		}
+		#addition	{
+			width:700px;
+			height:150px
+			float:left;
+			margin-left:290px;		}
+	</style>
+</head>
+<body>
+	
+	<H2>Student Information</h2>
+	<div id="id01"></div>
+	<div id="addition">
+		<table>
+			<tr>
+				<td>Enter Roll Number*</td>
+				<td><input type="text" id="rollnumber"></td>
+			</tr>
+			<tr>
+				<td>Enter First Name*</td>
+				<td><input type="text" id="firstname"></td>
+			</tr>
+			<tr>
+				<td>Enter Last Name*</td>
+				<td><input type="text" id="lastname"></td>
+			</tr>
+			<tr>
+				<td>Enter All Subjects*</td>
+				<td><input type="text" id="allsubject"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><button id="adding">Add</button><button id="append1">Update</button><button id="cancel">Cancel</button></td>
+			</tr>
+		</table>
+	</div>
+	<script>
+	function myFunction(arr) {
+		var out = '<table id="student">';
+		out += '<tr><th>Selection</th><th>RollNo</th><th>FirstName</th><th>Lastname</th><th>Subjects</th><th>Operation<button id="add" style="float: right;">Add</button><button id="deleteAll" style="float: right;">Delete</button></th></tr>';
+		var i;
+		for(i = 0; i<arr.length; i++) {
+			out +='<tr id="row_'+i+'">';
+			
+			out += '<td id="' + "rowdel" + i + '"> <input type="checkbox" name="chk" id="' + "allRowDelete" + i + '"></td>';
+			out += '<td id="' + "roll" + i + '">' + arr[i].rollno + '</td>' + 
+			'<td id="' + "fname" + i + '">' + arr[i].fname + '</td>' + 
+			'<td id="' + "lname" + i + '">' + arr[i].lname + '</td>' + 
+			'<td id="' + "subject" + i + '">' + arr[i].subjects + '</td>' +
+			'<td id="' + "button" + i + '">' + '<button class="updaterecord" id="' + "update" + i + '">Update</button>' + '<button class="deleterecord" id="' + "delete" + i + '" row_id="'+i+'">Delete</button>' + '<button class="save" id="' + "save" + i + '">Save</button>' + '</td>';
+			out +='<tr>';
+		}
+		out +='</table>';
+		document.getElementById("id01").innerHTML = out;
+	}
+	</script>
+	<script src="myTutorials.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script>
+		$(document).ready(function(){
+			$("#addition").hide();
+			addRow();
+			newRow();
+			deleteRow();
+			updateRowDate();
+			updateRow();
+			cancelButton();
+			deleteAll1();
+			
+		});
+	
+		function deleteAll1(){
+			$( "#deleteAll" ).click(function() {
+				var last,checBoxID,count=0;
+				$("input:checkbox[name=chk]:checked").each(function () {
+					checBoxID = $(this).attr("id");
+					last = checBoxID.charAt(checBoxID.length - 1);
+					$('#row_'+last).remove();
+					count++;
+				});
+				$( "#addition" ).hide( "slow", function() {
+				});
+				if(count!=0)
+				{
+					alert(count + " Record Successfully Deleted");
+				}
+				 else
+				{
+					alert("Please Select Atleast one Record");
+				}
+			});
+		}
+		function newRow(){
+			$( "#add" ).click(function() {
+				$( "#addition" ).show( "slow", function() {
+					$("#append1").hide();
+					$("#adding").show();
+				});
+			});
+		}
+		var i=5;
+		function addRow(){
+				$(function () {
+					$("#adding").click(function () {		
+						var tds = '<tr>';
+						tds += '<td id="' + "rowdel" + i + '"> <input type="checkbox" name="chk" id="' + "allRowDelete" + i + '"></td>';
+						tds += '<td id="' + "roll" + i + '">' + $('#rollnumber').val() + '</td>'
+						+ '<td id="' + "fname" + i + '">' + $('#firstname').val() + '</td>'
+						+ '<td id="' + "lname" + i + '">' + $('#lastname').val() + '</td>'
+						+ '<td id="' + "subject" + i + '">' + $('#allsubject').val() + '</td>'
+						+ '<td id="' + "button" + i + '">' + '<button class="updaterecord" id="' + "update" + i + '">Update</button>' + '<button class="deleterecord" id="' + "delete" + i + '" row_id="'+i+'">Delete</button>' + '<button class="save" id="' + "save" + i + '">Save</button>' + '</td>';
+						tds += '</tr>';
+						$("#student").append(tds);
+						$('#rollnumber').val("");
+						$('#firstname').val("");
+						$('#lastname').val("");
+						$('#allsubject').val("");
+						$("#addition").hide();
+						i++;
+						alert("Student Record Successfully Added");
+					});
+				});
+		}
+		
+		function deleteRow(){
+			$(".deleterecord").click(function () {
+				var id = $(this).attr('row_id');
+				$('#row_'+id).remove();
+				$( "#addition" ).hide( "slow", function() {
+				});
+				alert("Successfully Deleted");
+			});
+		}
+		var last;
+		function updateRowDate(){
+			$(".updaterecord").click(function () {
+				var updateid = this.id;
+				last = updateid.charAt(updateid.length - 1);
+				$('#rollnumber').val($('#roll'+last).html());
+				$('#firstname').val($('#fname'+last).html());
+				$('#lastname').val($('#lname'+last).html());
+				$('#allsubject').val($('#subject'+last).html());
+				$( "#addition" ).show( "slow", function() {
+				$("#append1").show();
+				$("#adding").hide();
+				});
+			});
+		}
+		function updateRow(){
+				$(function () {
+					$("#append1").click(function () {
+						$('#roll'+last).html($('#rollnumber').val());
+						$('#fname'+last).html($('#firstname').val());
+						$('#lname'+last).html($('#lastname').val());
+						$('#subject'+last).html($('#allsubject').val());
+						$("#addition").hide();
+						alert("Successfully Updated");
+					});
+				});
+		}
+		function cancelButton(){
+			$( "#cancel" ).click(function() {
+				$( "#addition" ).hide( "slow", function() {
+					$('#rollnumber').val("");
+					$('#firstname').val("");
+					$('#lastname').val("");
+					$('#allsubject').val("");
+				});
+			});
+		}			
+	</script>
+</body>
+</html>
